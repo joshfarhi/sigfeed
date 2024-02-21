@@ -1,19 +1,27 @@
-"use client";
-
-// newPost.tsx
 import React, { useState } from 'react';
 
-const NewPost: React.FC = () => {
+interface NewPostProps {
+  onNewPost: (post: { type: string; url: string; otherData?: any }) => void;
+}
+
+const NewPost: React.FC<NewPostProps> = ({ onNewPost }) => {
   const [linkType, setLinkType] = useState<string>('reddit');
   const [url, setUrl] = useState<string>('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Logic to handle the submission
-    // For example, validate the URL, fetch the necessary information from the selected platform,
-    // and then display it on the card.
-    console.log(`Submitting ${linkType} link: ${url}`);
-    // Reset form
+    
+    // Here you would include any additional logic needed to process or validate the URL.
+    // For example, fetching metadata from the URL, validating URL format, etc.
+    // This example directly passes the URL and type to the parent component.
+
+    onNewPost({
+      type: linkType,
+      url: url,
+      // Include any other data you might need for the card components
+    });
+
+    // Reset the form fields
     setUrl('');
   };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 
 // Define props type for the Reddit card
