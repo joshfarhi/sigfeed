@@ -11,7 +11,7 @@ const NewPost: React.FC<NewPostProps> = ({ onNewPost }) => {
   // Function to call the API and get scraped data
   const fetchPostData = async (url: string, type: string) => {
     try {
-      const response = await fetch('/api/scrape.js', {
+      const response = await fetch('/pages/api/scrapeInstagram.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
