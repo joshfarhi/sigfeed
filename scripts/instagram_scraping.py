@@ -1,26 +1,21 @@
-# instagram_scraping.py
-import sys
-import json
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By  # Import the By class
 
 def scrape_instagram(url):
-    options = Options()
-    options.headless = True
-    driver = webdriver.Chrome(options=options)
-
+    driver = webdriver.Chrome('/public/chromedriver')
     driver.get(url)
-    # Wait for elements to load
-    driver.implicitly_wait(5)
 
-    # Example: Extracting the caption
-    caption = driver.find_element_by_xpath('//div[contains(@class, "C4VMK")]/span').text
+    # Update the method to find elements
+    caption_element = driver.find_element(By.XPATH, '//div[contains(@class, "C4VMK")]/span')
+    caption = caption_element.text
+
+    # Add additional scraping logic as needed
 
     driver.quit()
-
     return {"caption": caption}
 
 if __name__ == "__main__":
+    import sys
     url = sys.argv[1]
     data = scrape_instagram(url)
-    print(json.dumps(data))
+    print(data)
