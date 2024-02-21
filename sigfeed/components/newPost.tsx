@@ -16,7 +16,7 @@ const NewPost: React.FC<NewPostProps> = ({ onNewPost }) => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ url: 'https://www.instagram.com/p/C3n_FDPPLy0/' }),
+            body: JSON.stringify({ url }),
           });
           
       if (!response.ok) {
