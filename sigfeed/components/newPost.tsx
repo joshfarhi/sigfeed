@@ -8,18 +8,39 @@ const NewPost: React.FC<NewPostProps> = ({ onNewPost }) => {
   const [linkType, setLinkType] = useState<string>('reddit');
   const [url, setUrl] = useState<string>('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  // Function to call the API and get scraped data
+  const fetchPostData = async (url: string, type: string) => {
+    try {
+      const response = await fetch('/api/scrape.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url, type }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      return data; // This data should include the necessary properties for the card components
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
-    // Here you would include any additional logic needed to process or validate the URL.
-    // For example, fetching metadata from the URL, validating URL format, etc.
-    // This example directly passes the URL and type to the parent component.
-
-    onNewPost({
-      type: linkType,
-      url: url,
-      // Include any other data you might need for the card components
-    });
+    // Call the API to fetch post data based on the URL
+    const scrapedData = await fetchPostData(url, linkType);
+    if (scrapedData) {
+      onNewPost({
+        type: linkType,
+        url: url,
+        ...scrapedData, // Spread the fetched data into the post object
+      });
+    }
 
     // Reset the form fields
     setUrl('');
