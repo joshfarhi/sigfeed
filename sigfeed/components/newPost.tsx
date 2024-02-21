@@ -1,3 +1,5 @@
+"use client";
+
 // newPost.tsx
 import React, { useState } from 'react';
 
