@@ -11,13 +11,14 @@ const NewPost: React.FC<NewPostProps> = ({ onNewPost }) => {
   // Function to call the API and get scraped data
   const fetchPostData = async (url: string, type: string) => {
     try {
-      const response = await fetch('/pages/api/scrapeInstagram.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ url, type }),
-      });
+        const response = await fetch('/api/scrapeInstagram', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url: 'https://www.instagram.com/p/C3n_FDPPLy0/' }),
+          });
+          
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
