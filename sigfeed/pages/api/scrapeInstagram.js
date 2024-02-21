@@ -5,7 +5,7 @@ export default function handler(req, res) {
   if (req.method === 'POST') {
     const { url } = req.body;
 
-    exec(`python path/to/instagram_scraping.py "${url}"`, (error, stdout, stderr) => {
+    exec(`python3 ../scripts/instagram_scraping.py "${url}"`, (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
         return res.status(500).json({ error: "Failed to execute script" });
